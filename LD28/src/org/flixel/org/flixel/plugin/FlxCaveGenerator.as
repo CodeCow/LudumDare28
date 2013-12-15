@@ -174,7 +174,6 @@ package org.flixel.plugin
 		
 		private function floodFill(mat : Array)
 		{
-			
 			var tile : Node = new Node();
 			
 			for ( var y : uint = 0; y < _numTilesRows; ++y)
@@ -194,10 +193,8 @@ package org.flixel.plugin
 						
 						while (cavern.length > 0)
 						{
-							
-							var node : Object = cavern.pop();
-							
-							
+							var node : Node = new Node();
+							node.value = cavern.pop();
 							
 							if (!node.visited && !node.isWall())
 							{
@@ -225,8 +222,6 @@ package org.flixel.plugin
 								}
 								
 								cavern.push(total_cavern_area);
-								
-								
 							}
 							else {
 								
