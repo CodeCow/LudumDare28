@@ -16,7 +16,7 @@ package
 			var LudumDareText : FlxText = new FlxText(-FlxG.width/30, FlxG.height - FlxG.height/15, FlxG.width, "Ludum Dare 28");
 			LudumDareText.alignment = "right";
 			
-			var CreditsText : FlxText = new FlxText(0, FlxG.height / 4 +  + (FlxG.height / 8), FlxG.width, "CodeAssassin & Gamepopper");
+			var CreditsText : FlxText = new FlxText(0, FlxG.height / 4 +  + (FlxG.height / 6), FlxG.width, "CodeAssassin & Gamepopper");
 			CreditsText.alignment = "center"
 			
 			var PlayButton : FlxButton = new FlxButton(0, FlxG.height / 2, "Play", FadeToPlay);
