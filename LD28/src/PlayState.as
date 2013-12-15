@@ -13,7 +13,8 @@ package
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
 		
 		override public function create():void {
-
+			
+			trace("Create Play State Event");
 				
 			var tileSize : int = 8;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);

@@ -153,6 +153,7 @@ package org.flixel.plugin
 				mat2 = temp;
 			}
 			borderGeneration(mat);
+			floodFill(mat);
 			return mat;
 		}
 		
@@ -173,16 +174,73 @@ package org.flixel.plugin
 		
 		private function floodFill(mat : Array)
 		{
+			
+			var tile : Node = new Node();
+			
 			for ( var y : uint = 0; y < _numTilesRows; ++y)
 			{
-				for ( var x : uint; x < _numTilesCols; ++x)
+				for ( var x : uint = 0; x < _numTilesCols; ++x)
 				{
-					var tile : int = mat[y][x];
-					
+					tile.value = mat[y][x];
+					tile.X = x;
+					tile.Y = y;
 					var cavern : Array = [];
 					var total_cavern_area : Array = [];
+					//trace("loop");
+					if (tile.visited == false && tile.isWall() == false)
+					{
+						cavern.push(tile);
+						trace("actually triggered");
+						
+						while (cavern.length > 0)
+						{
+							
+							var node : Object = cavern.pop();
+							
+							
+							
+							if (!node.visited && !node.isWall())
+							{
+								node.visited = true;
+								total_cavern_area.push(node);
+								
+								if (node.X - 1 > 0 && !mat[node.Y][node.X - 1] == 0)
+								{
+									cavern.push(mat[node.Y][node.X - 1]);
+								}
+								
+								if (node.X + 1 < mat.length && !mat[node.Y][node.X + 1] == 0)
+								{
+									cavern.push(mat[node.Y][node.X + 1]);
+								}
+								
+								if (node.Y - 1 > 0 && !mat[node.Y - 1][node.X] == 0)
+								{
+									cavern.push(mat[node.Y - 1][node.X]);
+								}
+								
+								if (node.Y + 1 < mat.length && !mat[node.Y + 1][node.X] == 0)
+								{
+									cavern.push(mat[node.X][node.Y + 1]);
+								}
+								
+								cavern.push(total_cavern_area);
+								
+								
+							}
+							else {
+								
+								tile.visited = true;
+							}
+						
+						}
+						
 					
-					// just translate and stuff
+						
+						
+					
+						
+					}
 				}
 			}
 			
