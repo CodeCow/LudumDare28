@@ -7,6 +7,7 @@ package
 		override public function create():void 
 		{
 			FlxG.flash(1);
+			FlxG.mouse.show();
 			
 			var TitleText : FlxText = new FlxText(0, FlxG.height / 4, FlxG.width, "You Only Get One");
 			TitleText.alignment = "center";
@@ -14,8 +15,6 @@ package
 			
 			var PlayButton : FlxButton = new FlxButton(0, FlxG.height / 2, "Play", FadeToPlay);
 			PlayButton.x = FlxG.width / 2 - PlayButton.width / 2;
-			
-			FlxG.mouse.show();
 			
 			add(TitleText);
 			add(PlayButton);
