@@ -1,8 +1,8 @@
 package  
 {
 	import org.flixel.*;
-	import map.Map;
-	import map.CellularAutomata;
+	import mapGen.Map;
+	import mapGen.CellularAutomata;
 	
 	public class Overworld extends Map 
 	{
