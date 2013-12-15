@@ -170,5 +170,22 @@ package org.flixel.plugin
 			}
 
 		}
+		
+		private function floodFill(mat : Array)
+		{
+			for ( var y : uint = 0; y < _numTilesRows; ++y)
+			{
+				for ( var x : uint; x < _numTilesCols; ++x)
+				{
+					var tile : int = mat[y][x];
+					
+					var cavern : Array = [];
+					var total_cavern_area : Array = [];
+					
+					// just translate and stuff
+				}
+			}
+			
+		}
 	}
 }
