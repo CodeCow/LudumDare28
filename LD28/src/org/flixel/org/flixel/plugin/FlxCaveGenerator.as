@@ -14,7 +14,7 @@ package org.flixel.plugin
 		 * How many times do you want to "smooth" the cave.
 		 * The higher number the smoother.
 		 */ 
-		public static var numSmoothingIterations:uint = 6;
+		public static var numSmoothingIterations:uint = 3;
 		
 		/**
 		 * During initial state, how percent of matrix are walls?
@@ -152,8 +152,23 @@ package org.flixel.plugin
 				mat = mat2;
 				mat2 = temp;
 			}
-			
+			borderGeneration(mat);
 			return mat;
+		}
+		
+		private function borderGeneration(mat : Array) 
+		{
+			for ( var y : uint = 0; y < _numTilesRows; ++y)
+			{
+				for ( var x:uint = 0; x < _numTilesCols; ++x)
+				{
+					if (x == 0 || y == 0 || x == _numTilesCols - 1)
+					{
+						mat[y][x] = 0;
+					}
+				}
+			}
+
 		}
 	}
 }

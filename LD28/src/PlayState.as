@@ -2,17 +2,20 @@ package
 {
 	import org.flixel.*;
 	import org.flixel.plugin.FlxCaveGenerator;
+	import mapGen.CellularAutomata;
 	
 	/**
 	 * ...
 	 * @author Code Assassin
 	 */
 	public class PlayState extends FlxState
-	{		
+	{	
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
 		
 		override public function create():void {
-			var tileSize : int = 16;
+
+				
+			var tileSize : int = 8;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
 			
 			
@@ -26,7 +29,7 @@ package
 			
 			// Converts the matrix into a string that is readable by FlxTileMap
 			var dataStr:String = FlxCaveGenerator.convertMatrixToStr( caveMatrix );
-			trace(dataStr);
+			//trace(dataStr);
 			
 			// Loads tilemap of tilesize 16x16
 			var tileMap:FlxTilemap = new FlxTilemap();
