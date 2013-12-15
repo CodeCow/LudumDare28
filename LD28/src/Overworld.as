@@ -25,7 +25,7 @@ package
 				
 		}
 		
-		override public function Draw(sprite : FlxSprite)
+		override public function Draw(sprite : FlxSprite) : void
 		{
 			
 		}

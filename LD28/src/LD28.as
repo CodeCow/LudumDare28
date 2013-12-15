@@ -6,7 +6,7 @@ package
 	
 	public class LD28 extends FlxGame
 	{
-		var debugLevel : Overworld = new Overworld(20, 20);
+		//var debugLevel : Overworld = new Overworld(20, 20);
 		public function LD28()
 		{
 			super(320,240,MenuState,2); //Create a new FlxGame object at 320x240 with 2x pixels, then load PlayState

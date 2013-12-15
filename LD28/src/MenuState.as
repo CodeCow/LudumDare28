@@ -27,7 +27,7 @@ package
 			super.update();
 		}
 		
-		public function FadeToPlay()		
+		public function FadeToPlay() : void	
 		{
 			FlxG.fade(0xff000000, 0.25, GoToPlay, true);
 		}
