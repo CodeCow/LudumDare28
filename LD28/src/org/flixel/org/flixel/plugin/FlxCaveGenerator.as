@@ -80,7 +80,7 @@ package org.flixel.plugin
 			return mat;
 		}
 		
-		private function createVisitedList(rows : uint, cols : uint, mat : Array) 
+		private function createVisitedList(rows : uint, cols : uint, mat : Array) : void
 		{
 			visitedCells = new Array();
 			for ( var y:uint = 0; y < rows; ++y )
@@ -172,11 +172,11 @@ package org.flixel.plugin
 			
 			createVisitedList(_numTilesRows, _numTilesCols, mat);
 			mat = getAllCaves(mat);
-			borderGeneration(mat);
+			//borderGeneration(mat);
 			return mat;
 		}
 		
-		private function borderGeneration(mat : Array) 
+		private function borderGeneration(mat : Array) : void
 		{
 			for ( var y : uint = 0; y < _numTilesRows; ++y)
 			{
@@ -193,7 +193,7 @@ package org.flixel.plugin
 		
 			
 
-    private function floodFill(mat : Array, entryPointX: int, entryPointY : int)
+    private function floodFill(mat : Array, entryPointX: int, entryPointY : int) : Array
     {
             var unprocessed : Array = [];
             var cavern : Array = [];
@@ -225,7 +225,7 @@ package org.flixel.plugin
             //cavern should contain ALL POINTS that belong to the same cavern as the {entryPointX, entryPointY} belongs.
     }
 	
-	private function getAllCaves(mat : Array)
+	private function getAllCaves(mat : Array) : Array
 	{
         var caverns : Array = []; //caverns should be an array of arrays.
         for ( var y:uint = 0; y < _numTilesRows; ++y)
@@ -248,9 +248,9 @@ package org.flixel.plugin
 				mat[cavern[i].Y][cavern[i].X] = 0;
 	
 		
-	}
+		}
 	
-	return mat;
+		return mat;
 	}
 }
 }

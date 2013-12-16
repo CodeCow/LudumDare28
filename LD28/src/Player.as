@@ -14,7 +14,7 @@ package
 		public function Player(X:Number=0, Y:Number=0, SimpleGraphic:Class=null) 
 		{			
 			super(X, Y, SimpleGraphic);
-			makeGraphic(6, 6, 0xff000000);
+			makeGraphic(4, 4, 0xbb888800);
 			/*loadGraphic(ImgPlayer, true, true, 45, 85);
 			addAnimation("Stand", [0]);
 			addAnimation("Walking", [1, 2, 3, 4, 5], speed / 5, true);

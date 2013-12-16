@@ -16,7 +16,7 @@ package
 		
 		override public function create():void {
 			trace("Create Play State Event");
-			FlxG.bgColor = 0xff112233;
+			FlxG.bgColor = 0xff001122;
 				
 			var tileSize : int = 5;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
@@ -40,6 +40,17 @@ package
 			add(tileMap);
 			
 			player = new Player();
+			var x : int = (int)(FlxG.random() * tileMap.widthInTiles), 
+			y : int = (int)(FlxG.random() * tileMap.heightInTiles);
+			
+			while (tileMap.getTile(x, y) == 1)
+			{
+				x = (int)(FlxG.random() * tileMap.widthInTiles) - 1;
+				y = (int)(FlxG.random() * tileMap.heightInTiles) - 1;
+			}
+			
+			player.x = x * tileSize;
+			player.y = y * tileSize;
 			add(player);
 			
 			super.create();
