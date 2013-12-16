@@ -11,9 +11,12 @@ package
 	public class PlayState extends FlxState
 	{	
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
+		private var player
+		private var tileMap:FlxTilemap;
 		
 		override public function create():void {
 			trace("Create Play State Event");
+			FlxG.bgColor = 0xff112233;
 				
 			var tileSize : int = 5;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
@@ -32,16 +35,22 @@ package
 			//trace(dataStr);
 			
 			// Loads tilemap of tilesize 16x16
-			var tileMap:FlxTilemap = new FlxTilemap();
+			tileMap = new FlxTilemap();
 			tileMap.loadMap(dataStr, ImgBlock, tileSize, tileSize);
 			add(tileMap);
+			
+			player = new Player();
+			add(player);
 			
 			super.create();
 		}
 			
 		override public function update():void 
 		{
+			player.update();
+			tileMap.update();
 			
+			FlxG.collide(player, tileMap);
 			super.update();
 		}
 		
