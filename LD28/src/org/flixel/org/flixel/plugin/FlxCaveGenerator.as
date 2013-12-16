@@ -172,7 +172,7 @@ package org.flixel.plugin
 			
 			createVisitedList(_numTilesRows, _numTilesCols, mat);
 			mat = getAllCaves(mat);
-			//borderGeneration(mat);
+			borderGeneration(mat);
 			return mat;
 		}
 		
@@ -184,7 +184,7 @@ package org.flixel.plugin
 				{
 					if (x == 0 || y == 0 || y == _numTilesRows -1 || x == _numTilesCols - 1)
 					{
-						mat[y][x] = 1;
+						mat[y][x] = 0;
 					}
 				}
 			}

@@ -16,9 +16,14 @@ package
 		
 		override public function create():void {
 			trace("Create Play State Event");
-			FlxG.bgColor = 0xff001122;
-				
-			var tileSize : int = 5;
+			FlxG.bgColor = 0xFFA9A9A9;
+			
+			// uncomment these if you want to play around with these
+			
+			FlxG.debug = true;
+			FlxG.visualDebug = true;
+			
+			var tileSize : int = 18;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
 			
 			
