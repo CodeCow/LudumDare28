@@ -63,12 +63,15 @@ package
 			if (FlxG.keys.D)
 			{
 				velocity.x += speed;
+<<<<<<< HEAD
 				
 				if (x + width > FlxG.width)
 				{
 					x = FlxG.width - width;
 					velocity.x = 0;
 				}
+=======
+>>>>>>> 1923065c882581ec5816b866430a2f7ecdd72804
 			}
 			
 			if (velocity.x != 0 || velocity.y != 0)
