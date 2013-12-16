@@ -13,6 +13,7 @@ package
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
 		private var player
 		private var tileMap:FlxTilemap;
+		var debugText : FlxText;
 		
 		override public function create():void {
 			trace("Create Play State Event");
@@ -58,6 +59,9 @@ package
 			player.y = y * tileSize;
 			add(player);
 			
+			debugText = new FlxText(10, 10, FlxG.width, "X: 0 - Y: 0");
+			add(debugText);
+			
 			super.create();
 		}
 			
@@ -67,6 +71,8 @@ package
 			tileMap.update();
 			
 			FlxG.collide(player, tileMap);
+			
+			debugText.text = "X: " +  FlxU.round(player.x) + " - Y: " + FlxU.round(player.y);
 			super.update();
 		}
 		

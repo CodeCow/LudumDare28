@@ -19,15 +19,11 @@ package
 			addAnimation("Stand", [0]);
 			addAnimation("Walking", [1, 2, 3, 4, 5], speed / 5, true);
 			scale.x = scale.y = 0.2;
-			width = 12;
-			height = 16;
-			offset.x = 0;
-			offset.y = 0;
-			origin.x = 0;
-			origin.y = 0;
-			
-
-		}
+			offset.x += 17;
+			offset.y += 34.5;
+			width -= 34;
+			height -= 67;
+ 		}
 		
 		override public function update():void 
 		{	
@@ -39,6 +35,7 @@ package
 				if (y < 0)
 				{
 					y = 0;
+					velocity.y = 0;
 				}
 			}
 			
@@ -48,6 +45,7 @@ package
 				if (x < 0)
 				{
 					x = 0;
+					velocity.x = 0;
 				}
 			}
 			
@@ -58,6 +56,7 @@ package
 				if (y + height > FlxG.height)
 				{
 					y = FlxG.height - height;
+					velocity.y = 0;
 				}
 			}
 			
@@ -68,6 +67,7 @@ package
 				if (x + width > FlxG.width)
 				{
 					x = FlxG.width - width;
+					velocity.x = 0;
 				}
 			}
 			
