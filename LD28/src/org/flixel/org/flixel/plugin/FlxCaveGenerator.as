@@ -244,12 +244,16 @@ package org.flixel.plugin
                 var cavern : Array = [];
                 cavern = caverns[i];
                 //do whatever which each cavern now
-     
-				mat[cavern[i].Y][cavern[i].X] = 0;
-	
-		
+				try
+				{
+					mat[cavern[i].Y][cavern[i].X] = 0;
+				}
+				catch (e:*)
+				{
+					var mat : Array = generateCaveLevel();
+					mat = getAllCaves(mat);
+				}
 		}
-	
 		return mat;
 	}
 }

@@ -11,13 +11,17 @@ package
 	public class PlayState extends FlxState
 	{	
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
-		private var player
+		[Embed(source = '../data/music/maybemusic-b.mp3')] public static var PlayMusic:Class;
+		private var player:Player;
 		private var tileMap:FlxTilemap;
-		var debugText : FlxText;
+		private var debugText : FlxText;
 		
 		override public function create():void {
 			trace("Create Play State Event");
 			FlxG.bgColor = 0xFFA9A9A9;
+			FlxG.mouse.hide();
+			FlxG.play(PlayMusic, 1, true, true).fadeIn(1);
+			FlxG.flash(1);
 			
 			// uncomment these if you want to play around with these
 			
@@ -59,8 +63,8 @@ package
 			player.y = y * tileSize;
 			add(player);
 			
-			debugText = new FlxText(10, 10, FlxG.width, "X: 0 - Y: 0");
-			add(debugText);
+			/*debugText = new FlxText(10, 10, FlxG.width, "X: 0 - Y: 0");
+			add(debugText);*/
 			
 			super.create();
 		}
@@ -72,7 +76,7 @@ package
 			
 			FlxG.collide(player, tileMap);
 			
-			debugText.text = "X: " +  FlxU.round(player.x) + " - Y: " + FlxU.round(player.y);
+			//debugText.text = "X: " +  FlxU.round(player.x) + " - Y: " + FlxU.round(player.y);
 			super.update();
 		}
 		

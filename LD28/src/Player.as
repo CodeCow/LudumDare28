@@ -9,7 +9,7 @@ package
 	public class Player extends FlxSprite 
 	{
 		[Embed(source = '../data/sprites/player/player_sheet.png')] public static var ImgPlayer:Class;
-		private var speed = 60;
+		private var speed : Number = 60;
 		
 		public function Player(X:Number=0, Y:Number=0, SimpleGraphic:Class=null) 
 		{			
@@ -46,6 +46,7 @@ package
 				{
 					x = 0;
 					velocity.x = 0;
+					facing = LEFT;
 				}
 			}
 			
@@ -68,6 +69,7 @@ package
 				{
 					x = FlxG.width - width;
 					velocity.x = 0;
+					facing = RIGHT;
 				}
 			}
 			
