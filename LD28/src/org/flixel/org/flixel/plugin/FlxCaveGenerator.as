@@ -171,7 +171,7 @@ package org.flixel.plugin
 			}
 			
 			createVisitedList(_numTilesRows, _numTilesCols, mat);
-			floodFill(mat);
+			mat = getAllCaves(mat);
 			borderGeneration(mat);
 			return mat;
 		}
@@ -191,95 +191,66 @@ package org.flixel.plugin
 
 		}
 		
-		private function floodFill(mat : Array)
-		{	
-			var caverns : Array = [];
 			
-			for ( var y:uint = 0; y < _numTilesRows; ++y)
-			{
-				for ( var x : uint = 0; x < _numTilesCols; ++x)
-				{
-					var cavern : Array = [];
-					var totalCavern : Array = [];
-					
-					if (visitedCells[y][x].isWall() == false && visitedCells[y][x].visited == false)
-					{
-					
-					
-					cavern.push(visitedCells[y][x]);
-					//trace(cavern, visitedCells[y][x].visited,visitedCells[y][x].isWall());
-					
-					while (cavern.length > 0)
-					{
-						var n : Node = cavern.pop();
-						
-						if (n.isWall() == false && n.visited == false)
-						{
-							//n.value = 1;
-							n.visited = true;
-							totalCavern.push(n);
-							//trace(totalCavern);
-						
-							if (n.X - 1 > 0 && visitedCells[n.Y][n.X - 1].isWall() == false)
-							{
-								cavern.push(visitedCells[n.Y][n.X - 1]);
-							}
-							
-							if (n.X +  1 < visitedCells.length && visitedCells[n.Y][n.X + 1].isWall() == false)
-							{
-								cavern.push(visitedCells[n.Y][n.X + 1]);
-							}
-							
-							if (n.Y - 1 > 0 && visitedCells[n.Y - 1][n.X].isWall() == false)
-							{
-								cavern.push(visitedCells[n.Y - 1][n.X]);
-							}
-							
-							if (n.Y + 1 < visitedCells.length && visitedCells[n.Y + 1][n.X].isWall() == false)
-							{
-								cavern.push(visitedCells[n.Y + 1][n.X]);
-							}
-							
-							caverns.push(totalCavern);
-							
-						}
-						else
-						{		
-							visitedCells[y][x].visited = true;
-						}
-								
-									
-					}
-					
-					}
-				}
-			}
-			//var sorted_caverns : Array;
-			//sorted_caverns = caverns.sortOn("value",Array.NUMERIC | Array.RETURNINDEXEDARRAY,sortCaverns);
-			//sorted_caverns.pop();
-			
-			trace(totalCavern);
-			
-		}
-		
-		function sortCaverns(x, y) 
-		{
-			if (x > y)
-			{
-				
-			}
-			else {
-			return -1;
-			}
-				
-			if (x < y)
-			{
-				
-			}else{return 0;}
-			
-		}
-		
-		
+
+    private function floodFill(mat : Array, entryPointX: int, entryPointY : int)
+    {
+            var unprocessed : Array = [];
+            var cavern : Array = [];
+            unprocessed.push(visitedCells[entryPointY][entryPointX]);
+            while(unprocessed.length > 0)
+            {
+                    var n : Node = unprocessed.pop();
+                    n.visited = true;
+					cavern.push(n);
+                    if(n.X - 1 >= 0  && !visitedCells[n.Y][n.X -1].visited && !visitedCells[n.Y][n.X - 1].isWall())
+                    {
+                            unprocessed.push(visitedCells[n.Y][n.X - 1]);
+                    }
+                    if(n.X + 1 < _numTilesCols && !visitedCells[n.Y][n.X + 1].visited && !visitedCells[n.Y][n.X + 1].isWall())
+                    {
+                            unprocessed.push(visitedCells[n.Y][n.X + 1]);
+                    }
+                    if(n.Y + 1 < _numTilesRows && !visitedCells[n.Y + 1][n.X].visited && !visitedCells[n.Y+1][n.X].isWall())
+                    {
+                            unprocessed.push(visitedCells[n.Y + 1][n.X]);
+                    }
+                    if(n.Y - 1 >= 0 && !visitedCells[n.Y-1][n.X].visited && !visitedCells[n.Y-1][n.X].isWall())
+                    {
+                            unprocessed.push(visitedCells[n.Y - 1][n.X]);
+                    }
+            }
+     
+            return cavern;
+            //cavern should contain ALL POINTS that belong to the same cavern as the {entryPointX, entryPointY} belongs.
+    }
+	
+	private function getAllCaves(mat : Array)
+	{
+        var caverns : Array = []; //caverns should be an array of arrays.
+        for ( var y:uint = 0; y < _numTilesRows; ++y)
+        {
+                for ( var x : uint = 0; x < _numTilesCols; ++x)
+                {
+                        if(!visitedCells[y][x].visited && !visitedCells[y][x].isWall())
+                        {
+                                caverns.push(floodFill(mat, x, y));
+                        }
+                }
+        }
+        // now you can just:
+        for(var i:uint = 0; i < caverns.length; ++i)
+        {
+                var cavern : Array = [];
+                cavern = caverns[i];
+                //do whatever which each cavern now
+     
+				mat[cavern[i].Y][cavern[i].X] = 0;
+	
 		
 	}
+	
+	return mat;
+	}
+}
 }
