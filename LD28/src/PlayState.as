@@ -2,6 +2,8 @@ package
 {
 	import org.flixel.*;
 	import org.flixel.plugin.FlxCaveGenerator;
+	import org.flixel.plugin.photonstorm.*;
+	
 	import mapGen.CellularAutomata;
 	
 	/**
@@ -12,6 +14,7 @@ package
 	{	
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
 		[Embed(source = '../data/music/maybemusic-b.mp3')] public static var PlayMusic:Class;
+		[Embed(source = '../data/map/background.png')] public static var Background : Class;
 		private var player:Player;
 		private var tileMap:FlxTilemap;
 		private var debugText : FlxText;
@@ -25,13 +28,14 @@ package
 			
 			// uncomment these if you want to play around with these
 			
-			FlxG.debug = true;
-			FlxG.visualDebug = true;
+			//FlxG.debug = true;
+			//FlxG.visualDebug = true;
 			
 			var tileSize : int = 18;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
-			
-			
+			var bg : FlxSprite = new FlxSprite(0, 0, Background);
+			FlxGridOverlay.overlay(bg, 18, 18, -1, -1, false, true, 0x44e7e6e6, 0x44d9d5d5);
+			add(bg);
 			// Create cave of size 200x100 tiles
 			var cave:FlxCaveGenerator = 
 				new FlxCaveGenerator(worldSize.x / tileSize, worldSize.y / tileSize);
