@@ -11,14 +11,17 @@ package org.flixel.plugin
 		public var visited : Boolean = false; // Have we visited it
 		
 		// Constructor
-		public function Node()
+		public function Node(value : int, x : int, y : int, visited : Boolean)
 		{
-			// nothing needs to go in here
+			this.value = value;
+			this.X = x;
+			this.Y = y;
+			this.visited = visited;
 		}
 		
 		public function isWall() : Boolean
 		{
-			if (value == 0)
+			if (value == 1)
 			{
 				return true;
 			}

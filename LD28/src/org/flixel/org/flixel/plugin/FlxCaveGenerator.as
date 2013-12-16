@@ -9,12 +9,13 @@ package org.flixel.plugin
 	{
 		private var _numTilesCols:uint = 10;
 		private var _numTilesRows:uint = 10;
+		private var visitedCells : Array;
 		
 		/**
 		 * How many times do you want to "smooth" the cave.
 		 * The higher number the smoother.
 		 */ 
-		public static var numSmoothingIterations:uint = 3;
+		public static var numSmoothingIterations:uint = 6;
 		
 		/**
 		 * During initial state, how percent of matrix are walls?
@@ -70,10 +71,26 @@ package org.flixel.plugin
 			for ( var y:uint = 0; y < rows; ++y )
 			{
 				mat.push( new Array );
-				for ( var x:uint = 0; x < cols; ++x ) mat[y].push(0);
+				for ( var x:uint = 0; x < cols; ++x )
+				{
+					mat[y].push(0);
+				}
 			}
 			
 			return mat;
+		}
+		
+		private function createVisitedList(rows : uint, cols : uint, mat : Array) 
+		{
+			visitedCells = new Array();
+			for ( var y:uint = 0; y < rows; ++y )
+			{
+				visitedCells.push(new Array);
+				for ( var x:uint = 0; x < cols; ++x )
+				{
+					visitedCells[y].push(new Node(mat[y][x],x,y,false));
+				}
+			}
 		}
 		
 		/**
@@ -152,8 +169,10 @@ package org.flixel.plugin
 				mat = mat2;
 				mat2 = temp;
 			}
-			borderGeneration(mat);
+			
+			createVisitedList(_numTilesRows, _numTilesCols, mat);
 			floodFill(mat);
+			borderGeneration(mat);
 			return mat;
 		}
 		
@@ -163,9 +182,9 @@ package org.flixel.plugin
 			{
 				for ( var x:uint = 0; x < _numTilesCols; ++x)
 				{
-					if (x == 0 || y == 0 || x == _numTilesCols - 1)
+					if (x == 0 || y == 0 || y == _numTilesRows -1 || x == _numTilesCols - 1)
 					{
-						mat[y][x] = 0;
+						mat[y][x] = 1;
 					}
 				}
 			}
@@ -173,72 +192,94 @@ package org.flixel.plugin
 		}
 		
 		private function floodFill(mat : Array)
-		{
-			var tile : Node = new Node();
+		{	
+			var caverns : Array = [];
 			
-			for ( var y : uint = 0; y < _numTilesRows; ++y)
+			for ( var y:uint = 0; y < _numTilesRows; ++y)
 			{
 				for ( var x : uint = 0; x < _numTilesCols; ++x)
 				{
-					tile.value = mat[y][x];
-					tile.X = x;
-					tile.Y = y;
 					var cavern : Array = [];
-					var total_cavern_area : Array = [];
-					//trace("loop");
-					if (tile.visited == false && tile.isWall() == false)
+					var totalCavern : Array = [];
+					
+					if (visitedCells[y][x].isWall() == false && visitedCells[y][x].visited == false)
 					{
-						cavern.push(tile);
-						trace("actually triggered");
+					
+					
+					cavern.push(visitedCells[y][x]);
+					//trace(cavern, visitedCells[y][x].visited,visitedCells[y][x].isWall());
+					
+					while (cavern.length > 0)
+					{
+						var n : Node = cavern.pop();
 						
-						while (cavern.length > 0)
+						if (n.isWall() == false && n.visited == false)
 						{
-							var node : Node = new Node();
-							node.value = cavern.pop();
-							
-							if (!node.visited && !node.isWall())
+							//n.value = 1;
+							n.visited = true;
+							totalCavern.push(n);
+							//trace(totalCavern);
+						
+							if (n.X - 1 > 0 && visitedCells[n.Y][n.X - 1].isWall() == false)
 							{
-								node.visited = true;
-								total_cavern_area.push(node);
-								
-								if (node.X - 1 > 0 && !mat[node.Y][node.X - 1] == 0)
-								{
-									cavern.push(mat[node.Y][node.X - 1]);
-								}
-								
-								if (node.X + 1 < mat.length && !mat[node.Y][node.X + 1] == 0)
-								{
-									cavern.push(mat[node.Y][node.X + 1]);
-								}
-								
-								if (node.Y - 1 > 0 && !mat[node.Y - 1][node.X] == 0)
-								{
-									cavern.push(mat[node.Y - 1][node.X]);
-								}
-								
-								if (node.Y + 1 < mat.length && !mat[node.Y + 1][node.X] == 0)
-								{
-									cavern.push(mat[node.X][node.Y + 1]);
-								}
-								
-								cavern.push(total_cavern_area);
+								cavern.push(visitedCells[n.Y][n.X - 1]);
 							}
-							else {
-								
-								tile.visited = true;
+							
+							if (n.X +  1 < visitedCells.length && visitedCells[n.Y][n.X + 1].isWall() == false)
+							{
+								cavern.push(visitedCells[n.Y][n.X + 1]);
 							}
-						
+							
+							if (n.Y - 1 > 0 && visitedCells[n.Y - 1][n.X].isWall() == false)
+							{
+								cavern.push(visitedCells[n.Y - 1][n.X]);
+							}
+							
+							if (n.Y + 1 < visitedCells.length && visitedCells[n.Y + 1][n.X].isWall() == false)
+							{
+								cavern.push(visitedCells[n.Y + 1][n.X]);
+							}
+							
+							caverns.push(totalCavern);
+							
 						}
-						
+						else
+						{		
+							visitedCells[y][x].visited = true;
+						}
+								
+									
+					}
 					
-						
-						
-					
-						
 					}
 				}
 			}
+			//var sorted_caverns : Array;
+			//sorted_caverns = caverns.sortOn("value",Array.NUMERIC | Array.RETURNINDEXEDARRAY,sortCaverns);
+			//sorted_caverns.pop();
+			
+			trace(totalCavern);
 			
 		}
+		
+		function sortCaverns(x, y) 
+		{
+			if (x > y)
+			{
+				
+			}
+			else {
+			return -1;
+			}
+				
+			if (x < y)
+			{
+				
+			}else{return 0;}
+			
+		}
+		
+		
+		
 	}
 }
