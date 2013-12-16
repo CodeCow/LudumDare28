@@ -15,13 +15,13 @@ package org.flixel.plugin
 		 * How many times do you want to "smooth" the cave.
 		 * The higher number the smoother.
 		 */ 
-		public static var numSmoothingIterations:uint = 6;
+		public static var numSmoothingIterations:uint = 3;
 		
 		/**
 		 * During initial state, how percent of matrix are walls?
 		 * The closer the value is to 1.0, more wall-e the area is
 		 */
-		public static var initWallRatio:Number = 0.5;
+		public static var initWallRatio:Number = 0.4;
 		
 		
 		/**
@@ -244,6 +244,7 @@ package org.flixel.plugin
                 var cavern : Array = [];
                 cavern = caverns[i];
                 //do whatever which each cavern now
+<<<<<<< HEAD
 				try
 				{
 					mat[cavern[i].Y][cavern[i].X] = 0;
@@ -253,6 +254,13 @@ package org.flixel.plugin
 					var mat : Array = generateCaveLevel();
 					mat = getAllCaves(mat);
 				}
+=======
+				if (cavern[i] != null)
+				{
+				mat[cavern[i].Y][cavern[i].X] = 0;
+				}
+		
+>>>>>>> f5b0f8e26fca69eca8cec5565f488375864cc847
 		}
 		return mat;
 	}
