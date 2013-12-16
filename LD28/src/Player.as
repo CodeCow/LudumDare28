@@ -64,11 +64,6 @@ package
 			if (FlxG.keys.D)
 			{
 				velocity.x += speed;
-				
-				if (x + width > FlxG.width)
-				{
-					x = FlxG.width - width;
-				}
 			}
 			
 			if (velocity.x != 0 || velocity.y != 0)
