@@ -11,11 +11,11 @@ package
 		
 		
 		
-		public function Populater(mat : Array, width: int, height: int, coins: int) 
+		public function Populater(mat : Array, rows: int, col: int, coins: int) 
 		{
 			copyOfMap = mat;
-			this.width = width;
-			this.height = height;
+			this.width = rows;
+			this.height = col;
 			this.coins = coins;
 		}
 		
@@ -25,9 +25,9 @@ package
 			var coinCounter : int = 0;
 			var exitCounter : int = 0;
 			
-				for ( var y : uint = 0; y < height; ++y)
+				for ( var y : uint = 0; y < width; ++y)
 				{
-					for ( var x:uint = 0; x < width; ++x)
+					for ( var x:uint = 0; x < height; ++x)
 					{
 						if (coinCounter <= coins)
 						{
