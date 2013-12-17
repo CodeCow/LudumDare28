@@ -38,7 +38,7 @@ package
 			var bg : FlxSprite = new FlxSprite(0, 0, Background);
 			FlxGridOverlay.overlay(bg, 18, 18, -1, -1, false, true, 0x44e7e6e6, 0x44d9d5d5);
 			add(bg);
-			// Create cave of size 200x100 tiles
+			
 			var cave:FlxCaveGenerator = 
 				new FlxCaveGenerator(worldSize.x / tileSize, worldSize.y / tileSize);
 				
@@ -55,13 +55,6 @@ package
 			tileMap.loadMap(dataStr, ImgBlock, tileSize, tileSize);
 			add(tileMap);
 			
-			/*p = new Footprint();
-			p.x = FlxG.width / 2;
-			p.y = FlxG.height / 2;
-			add(p);*/
-			
-			//prints = new FlxGroup(40);
-			
 			player = new Player();
 			var x : int = (int)(FlxG.random() * tileMap.widthInTiles), 
 			y : int = (int)(FlxG.random() * tileMap.heightInTiles);
@@ -75,9 +68,6 @@ package
 			player.x = x * tileSize;
 			player.y = y * tileSize;
 			add(player);
-			
-			/*debugText = new FlxText(10, 10, FlxG.width, "X: 0 - Y: 0");
-			add(debugText);*/
 			
 			super.create();
 		}
