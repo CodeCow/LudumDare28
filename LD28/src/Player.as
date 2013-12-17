@@ -42,11 +42,13 @@ package
 			if (FlxG.keys.A)
 			{
 				velocity.x -= speed;
+				facing = LEFT;
+				
 				if (x < 0)
 				{
 					x = 0;
 					velocity.x = 0;
-					facing = LEFT;
+					
 				}
 			}
 			
@@ -64,12 +66,11 @@ package
 			if (FlxG.keys.D)
 			{
 				velocity.x += speed;
-				
+				facing = RIGHT;
 				if (x + width > FlxG.width)
 				{
 					x = FlxG.width - width;
 					velocity.x = 0;
-					facing = RIGHT;
 				}
 			}
 			

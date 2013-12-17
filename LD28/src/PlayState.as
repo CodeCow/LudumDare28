@@ -18,6 +18,8 @@ package
 		private var player:Player;
 		private var tileMap:FlxTilemap;
 		private var debugText : FlxText;
+		//private var p:Footprint;
+		//private var prints:FlxGroup;
 		
 		override public function create():void {
 			trace("Create Play State Event");
@@ -53,6 +55,13 @@ package
 			tileMap.loadMap(dataStr, ImgBlock, tileSize, tileSize);
 			add(tileMap);
 			
+			/*p = new Footprint();
+			p.x = FlxG.width / 2;
+			p.y = FlxG.height / 2;
+			add(p);*/
+			
+			//prints = new FlxGroup(40);
+			
 			player = new Player();
 			var x : int = (int)(FlxG.random() * tileMap.widthInTiles), 
 			y : int = (int)(FlxG.random() * tileMap.heightInTiles);
@@ -77,7 +86,7 @@ package
 		{
 			player.update();
 			tileMap.update();
-			
+			//p.update();
 			FlxG.collide(player, tileMap);
 			
 			//debugText.text = "X: " +  FlxU.round(player.x) + " - Y: " + FlxU.round(player.y);
