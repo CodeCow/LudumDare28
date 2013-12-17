@@ -6,6 +6,7 @@ package
 	{
 		override public function create():void 
 		{
+			FlxG.bgColor = 0xff000000;
 			FlxG.flash(1);
 			FlxG.mouse.show();
 			

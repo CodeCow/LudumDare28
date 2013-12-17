@@ -79,6 +79,11 @@ package
 			//p.update();
 			FlxG.collide(player, tileMap);
 			
+			if (FlxG.keys.justReleased("ESCAPE") || FlxG.keys.justReleased("BACKSPACE"))
+			{
+				FlxG.switchState(new MenuState);
+			}
+			
 			//debugText.text = "X: " +  FlxU.round(player.x) + " - Y: " + FlxU.round(player.y);
 			super.update();
 		}
