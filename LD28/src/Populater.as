@@ -31,9 +31,13 @@ package
 					{
 						if (coinCounter <= coins)
 						{
-							if (randRange(0, 100) > 45)
+							if (randRange(0, 100) > 60)
 							{
-								copyOfMap[y][x] = 2; // 2's are coins
+								if (copyOfMap[y][x] != 1) // we do this check to make sure we don't somehow spawn inbetween a wall
+								{
+									copyOfMap[y][x] = 2; // 2's are coins
+									
+								}
 								coinCounter += 1;
 							}
 						}
