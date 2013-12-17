@@ -1,5 +1,6 @@
 package  
 {
+	import flash.display.InteractiveObject;
 	import org.flixel.*;
 	import org.flixel.plugin.FlxCaveGenerator;
 	import org.flixel.plugin.photonstorm.*;
@@ -13,11 +14,14 @@ package
 	public class PlayState extends FlxState
 	{	
 		[Embed(source = '../data/map/block.png')] public static var ImgBlock:Class;
+		[Embed(source = '../data/map/coin.png')] public static var ImgCoin:Class;
+		[Embed(source = '../data/map/door.png')] public static var ImgDoor:Class;
 		[Embed(source = '../data/music/maybemusic-b.mp3')] public static var PlayMusic:Class;
 		[Embed(source = '../data/map/background.png')] public static var Background : Class;
 		private var player:Player;
 		private var tileMap:FlxTilemap;
 		private var debugText : FlxText;
+		private var Door:FlxSprite;
 		//private var p:Footprint;
 		//private var prints:FlxGroup;
 		
@@ -36,7 +40,7 @@ package
 			var tileSize : int = 18;
 			var worldSize : FlxPoint = new FlxPoint(FlxG.width, FlxG.height);
 			var bg : FlxSprite = new FlxSprite(0, 0, Background);
-			FlxGridOverlay.overlay(bg, 18, 18, -1, -1, false, true, 0x44e7e6e6, 0x44d9d5d5);
+			FlxGridOverlay.overlay(bg, tileSize, tileSize, -1, -1, false, true, 0x44e7e6e6, 0x44d9d5d5);
 			add(bg);
 			
 			var cave:FlxCaveGenerator = 
@@ -50,10 +54,24 @@ package
 			var dataStr:String = FlxCaveGenerator.convertMatrixToStr( caveMatrix );
 			//trace(dataStr);
 			
-			// Loads tilemap of tilesize 16x16
 			tileMap = new FlxTilemap();
 			tileMap.loadMap(dataStr, ImgBlock, tileSize, tileSize);
 			add(tileMap);
+			
+			/*for (dx = 0; dx < tileMap.widthInTiles; dx++)
+			{
+				for (dy = 0; dy < tileMap.heightInTiles; dy++)
+				{
+					if (tileMap.getTile(dx, dy) == 3)
+					{
+						trace(dx + " - " + dy);
+						Door.x = tileMap.getTileCoords(tileMap.get;
+						Door.y = dy * tileSize;
+					}
+				}
+			}*/
+			
+			add(Door);
 			
 			player = new Player();
 			var x : int = (int)(FlxG.random() * tileMap.widthInTiles), 
