@@ -43,6 +43,7 @@ package
 							if (randRange(0, 100) < 34)
 							{
 								copyOfMap[y][x] = 3; // 3's are exits
+								exitCounter += 1;
 							}
 						}
 					}
