@@ -173,6 +173,9 @@ package org.flixel.plugin
 			createVisitedList(_numTilesRows, _numTilesCols, mat);
 			mat = getAllCaves(mat);
 			borderGeneration(mat);
+			var populate : Populater = new Populater(mat, _numTilesRows, _numTilesCols, 3);
+			populate.determineSpawns();
+			mat = populate.copyOfMap;
 			return mat;
 		}
 		
